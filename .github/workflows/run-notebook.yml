@@ -1,0 +1,45 @@
+name: Run Notebook (CI)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  run-notebook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run notebook (fast mode)
+        run: |
+          # run in fast mode to keep CI runtime short; remove --fast for full run
+          python run_notebook.py --input nsga2_load_balancing.ipynb --output nsga2_load_balancing_ci.ipynb --fast --timeout 1200
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: notebook-outputs
+          path: |
+            pareto_plot.html
+            pareto_vals.csv
+            nsga2_load_balancing_ci.ipynb
