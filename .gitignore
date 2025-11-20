@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+ENV/
+.ipynb_checkpoints/
+# Ignore executed notebooks and outputs
+*_executed.ipynb
+*_run.ipynb
+pareto_plot.*
+pareto_vals.csv
+*.png
+*.svg
+*.html
+# VS Code settings
+.vscode/
+# OS files
+.DS_Store
+Thumbs.db
