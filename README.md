@@ -69,13 +69,3 @@ from asyncio import WindowsSelectorEventLoopPolicy
 asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())
 ```
 
-Extras que eu adicionei
-- Célula que plota e salva a fronteira de Pareto como `pareto_plot.html` (Plotly) e `pareto_vals.csv`.
-- Correção para atribuir crowding distance antes de usar a seleção por torneio (evita AttributeError).
-
-Se quiser que eu:
-- Exporte também PNG/SVG automaticamente (adiciono `kaleido`),
-- Reduza os parâmetros `NGEN`/`POP_SIZE` para testes mais rápidos,
-- Ou adicione instruções para rodar em CI (usando `papermill`),
-
-diga qual opção prefere e eu aplico as alterações.
